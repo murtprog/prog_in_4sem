@@ -1,3 +1,4 @@
+#1
 def arithmetic_operation(operation):
     if operation == "+":
         return lambda x, y: x + y
@@ -9,6 +10,17 @@ def arithmetic_operation(operation):
         return lambda x, y: x / y
     else:
         return print("Неверная операция")
+operation = arithmetic_operation("+")
+print(operation(1, 4))
 
-addition = arithmetic_operation("+")
-print(addition(1, 4))
+#2
+def simple_map(transformation, values):
+    result = []
+    for value in values:
+        result.append(transformation(value))
+    return result
+values = [1, 3, 1, 5, 7]
+operation = lambda x: x + 5
+print(*simple_map(operation, values))
+
+#3
