@@ -1,0 +1,14 @@
+def arithmetic_operation(operation):
+    if operation == "+":
+        return lambda x, y: x + y
+    if operation == "-":
+        return lambda x, y: x - y
+    if operation == "*":
+        return lambda x, y: x * y
+    if operation == "/":
+        return lambda x, y: x / y
+    else:
+        return print("Неверная операция")
+
+addition = arithmetic_operation("+")
+print(addition(1, 4))
