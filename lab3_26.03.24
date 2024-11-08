@@ -1,55 +1,174 @@
 #1
-coincidences = ["qwertyuiop", "йцукенгшщзхъ", "asdfghjkl", "фывапролджэ", "zxcvbnm", "ячсмитьбю"]
+Keyboard = ["qwertyuiop", "йцукенгшщзхъ", "asdfghjkl", "фывапролджэ", "zxcvbnm", "ячсмитьбю"]
+
 
 def check(password):
     if len(password) < 8:
         return("error")
 
     if not (any(i.isupper() for i in password) and any(i.islower() for i in password)):
-        return("error")
+            return("error")
 
     if not any(i.isdigit() for i in password):
-        return("error")
+            return("error")
 
-    for i in coincidences:
-        for j in range(len(password) - 2):
-            if password[j:j+3].lower() in i:
-                return("error")
+    for i in Keyboard:
+            for j in range(len(password) - 2):
+                if password[j:j+3].lower() in i:
+                    return("error")
+
     return("ok")
 
 
-print(check("qwdGesrqwr"))
-print(check("dnrvhifv15"))
-print(check("qwerg56Gk"))
-print(check("qwrF4"))
-print(check("gjguJ1523"))
-
+print(check("fqG34"))
+print(check("dfwegsew34fsg"))
+print(check("flsiMMsgkwl"))
+print(check("qwertyUU45"))
+print(check("ajfB638J"))
 
 
 #2
-coincidences = ["qwertyuiop", "йцукенгшщзхъ", "asdfghjkl", "фывапролджэ", "zxcvbnm", "ячсмитьбю"]
+Keyboard = ["qwertyuiop", "йцукенгшщзхъ", "asdfghjkl", "фывапролджэ", "zxcvbnm", "ячсмитьбю"]
+class PasswordError(Exception):
+    pass
 
-def check(password):
-    if len(password) < 8:
-        return("LengthError")
+class LengthError(PasswordError):
+    pass
 
+class LetterError(PasswordError):
+    pass
+
+class DigitError(PasswordError):
+    pass
+
+class SequenceError(PasswordError):
+    pass
+
+def check_password(password):
+    if len(password) < 9:
+         raise LengthError("Пароль должен содержать хотябы 9 символов")
+        
     if not (any(i.isupper() for i in password) and any(i.islower() for i in password)):
-        return("LetterError")
-
+         raise LetterError("Пароль должен содержать как большие так и маленькие буквы")
+        
     if not any(i.isdigit() for i in password):
-        return("DigitError ")
+         raise DigitError("В пароле должны содержаться цифры")
+        
+    for i in Keyboard:
+            for j in range(len(password) - 2):
+                if password[j:j+3].lower() in i:
+                    raise SequenceError("Пароль не должен быть простым")
+        
+        return "ok"
 
-    for i in coincidences:
-        for j in range(len(password) - 2):
-            if password[j:j+3].lower() in i:
-                return("SequenceError")
-    return("ok")
 
+try:
+    print(password("qwerHG3957"))
+except PasswordError as e:  
+    print(f"Произошла ожидаемая ошибка: {e}.")
+    
+try:
+    print(password("qjfYT9375"))
+except PasswordError as e:  
+    print(f"Произошла ожидаемая ошибка: {e}.")
 
-print(check("qwdGesrqwr"))
-print(check("dnrvhifv15"))
-print(check("qwerg56Gk"))
-print(check("qwrF4"))
-print(check("gjguJ1523"))
 
 #3
+Keyboard = ["qwertyuiop", "йцукенгшщзхъ", "asdfghjkl", "фывапролджэ", "zxcvbnm", "ячсмитьбю"]
+
+class PasswordError(Exception):
+    pass
+
+class LengthError(PasswordError):
+    pass
+
+class LetterError(PasswordError):
+    pass
+
+class DigitError(PasswordError):
+    pass
+
+class SequenceError(PasswordError):
+    pass
+
+def check_password(password):
+    try:
+        assert len(password) >= 9, "Пароль должен содержать хотя бы 9 символов"
+        assert any(i.isupper() for i in password) and any(i.islower() for i in password), "Пароль должен содержать как большие, так и маленькие буквы"
+        assert any(i.isdigit() for i in password), "В пароле должны содержаться цифры"
+        for j in Keyboard:
+            for i in range(len(password) - 2):
+                assert password[i:i+3].lower() not in j, "Пароль не должен быть простым"
+            return "ok"
+    except AssertionError as e:
+        raise PasswordError(e)
+    except Exception as e:
+        print(f"Произошла совсем не ожидаемая ошибка: {e}.")
+        return "error"
+
+
+
+try:
+    print(check_password("qwerHG3957"))
+except PasswordError as e:  
+    print(f"Произошла ожидаемая ошибка: {e}.")
+    
+try:
+    print(check_password("qjfYT9375"))
+except PasswordError as e:  
+    print(f"Произошла ожидаемая ошибка: {e}.")
+
+
+
+#4
+Keyboard = ["qwertyuiop", "йцукенгшщзхъ", "asdfghjkl", "фывапролджэ", "zxcvbnm", "ячсмитьбю"]
+
+class PasswordError(Exception):
+    pass
+
+class LengthError(PasswordError):
+    pass
+
+class LetterError(PasswordError):
+    pass
+
+class DigitError(PasswordError):
+    pass
+
+class SequenceError(PasswordError):
+    pass
+
+
+def check_password(password):
+    try:
+        assert len(password) >= 9, "Пароль должен содержать хотя бы 9 символов"
+        assert any(i.isupper() for i in password) and any(i.islower() for i in password), "Пароль должен содержать как большие, так и маленькие буквы"
+        assert any(i.isdigit() for i in password), "В пароле должны содержаться цифры"
+        for j in Keyboard:
+            for i in range(len(password) - 2):
+                assert password[i:i+3].lower() not in j, "Пароль не должен быть простым"
+        return "ok"
+    except AssertionError as e:
+        raise PasswordError(e)
+    except Exception as e:
+            print(f"Произошла совсем не ожидаемая ошибка: {e}.")
+            return "error"
+
+
+while True:
+    try:
+        password = input("Введите новый пароль: ")
+        result = check_password(password)
+        if result == "ok":
+            print("ok")
+            break
+    except PasswordError as e:
+        print(f"Ошибка: {e}")
+    except KeyboardInterrupt:
+        print("Bye-Bye")
+        break
+
+
+
+5#
+
