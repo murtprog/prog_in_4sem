@@ -171,4 +171,43 @@ while True:
 
 
 5#
+class DefaultList(list):
+    def __init__(self, default_value=None):
+        super().__init__()
+        self.default_value = default_value
 
+    def __getitem__(self, index):
+        try:
+            return super().__getitem__(index)
+        except IndexError:
+            return self.default_value
+
+# Создаем список с значением по умолчанию 0
+my_list = DefaultList(0)
+
+# Добавляем элементы в список
+my_list.append(1)
+my_list.append(2)
+my_list.append(3)
+
+# Получаем элементы списка
+print(my_list[0])  # Вывод: 1
+print(my_list[1])  # Вывод: 2
+print(my_list[2])  # Вывод: 3
+print(my_list[3])  # Вывод: 0 (значение по умолчанию)
+print(my_list[4])  # Вывод: 0 (значение по умолчанию)
+
+# Создаем список с другим значением по умолчанию
+my_other_list = DefaultList("default")
+
+# Добавляем элементы в список
+my_other_list.append("one")
+my_other_list.append("two")
+my_other_list.append("three")
+
+# Получаем элементы списка
+print(my_other_list[0])  # Вывод: "one"
+print(my_other_list[1])  # Вывод: "two"
+print(my_other_list[2])  # Вывод: "three"
+print(my_other_list[3])  # Вывод: "default" (значение по умолчанию)
+print(my_other_list[4])  # Вывод: "default" (значение по умолчанию)
