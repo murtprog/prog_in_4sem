@@ -1,0 +1,123 @@
+#1
+import sys
+
+def sum_args(arg1, arg2):
+    try:
+        return int(arg1) + int(arg2)
+    except ValueError:
+        return 0
+
+if len(sys.argv) == 3:
+    result = sum_args(sys.argv[1], sys.argv[2])
+    print(result)
+else:
+    print(0)
+
+#2
+import sys
+
+if len(sys.argv) == 1:  
+    print("NO PARAMS")
+else:
+    params = sys.argv[1:]  
+    result = 0
+    coefficient = 1  
+
+    for param in params:  
+        try:
+            num = int(param) 
+            result += num * coefficient
+            coefficient *= -1  
+        except ValueError:  
+            print(ValueError.__name__)  
+
+
+#3
+import sys
+import math
+
+def calculate_args(arg1, arg2, operator):
+    try:
+        num1 = float(arg1)
+        num2 = float(arg2)
+        if operator == '+':
+            return num1 + num2
+        elif operator == '-':
+            return num1 - num2
+        elif operator == '*':
+            return num1 * num2
+        elif operator == '/':
+            if num2 != 0:
+                return num1 / num2
+            else:
+                return "Zero error"
+        elif operator == '^':
+            return math.pow(num1, num2)
+        else:
+            return "Invalid operator"
+    except ValueError:
+        return "Invalid input format"
+
+if len(sys.argv) == 4:
+    result = calculate_args(sys.argv[1], sys.argv[2], sys.argv[3])
+    print(result)
+else:
+    print("Incorrect number of arguments")
+    print(result)
+
+
+#4
+import sys
+
+arguments = sys.argv[1:]
+sort_flag = False
+key_value_pairs = {}
+
+if arguments and arguments[0] == '--sort':
+    sort_flag = True
+    arguments = arguments[1:]
+
+for arg in arguments:
+    key, value = arg.split('=')
+    key_value_pairs[key] = value
+
+if sort_flag:
+    for key in sorted(key_value_pairs.keys()):
+        print(f"Key: {key} Value: {key_value_pairs[key]}")
+else:
+    for key, value in key_value_pairs.items():
+        print(f"Key: {key} Value: {value}")
+
+
+
+#5
+import sys
+
+def read_file(file_name):
+    try:
+        with open(file_name, 'r') as file:
+            lines = file.readlines()
+        return lines
+    except FileNotFoundError:
+        print("ERROR")
+        sys.exit()
+
+def main():
+    arguments = sys.argv[1:]
+    file_name = arguments[-1]
+    lines = read_file(file_name)
+
+    if '--sort' in arguments:
+        lines.sort()
+
+    if '--num' in arguments:
+        lines = [f"{i} {line}" for i, line in enumerate(lines)]
+
+    for line in lines:
+        print(line.strip())
+
+    if '--count' in arguments:
+        print(f"rows count: {len(lines)}")
+
+if __name__ == "__main__":
+    main()
