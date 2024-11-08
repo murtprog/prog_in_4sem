@@ -1,1 +1,55 @@
 #1
+coincidences = ["qwertyuiop", "йцукенгшщзхъ", "asdfghjkl", "фывапролджэ", "zxcvbnm", "ячсмитьбю"]
+
+def check(password):
+    if len(password) < 8:
+        return("error")
+
+    if not (any(i.isupper() for i in password) and any(i.islower() for i in password)):
+        return("error")
+
+    if not any(i.isdigit() for i in password):
+        return("error")
+
+    for i in coincidences:
+        for j in range(len(password) - 2):
+            if password[j:j+3].lower() in i:
+                return("error")
+    return("ok")
+
+
+print(check("qwdGesrqwr"))
+print(check("dnrvhifv15"))
+print(check("qwerg56Gk"))
+print(check("qwrF4"))
+print(check("gjguJ1523"))
+
+
+
+#2
+coincidences = ["qwertyuiop", "йцукенгшщзхъ", "asdfghjkl", "фывапролджэ", "zxcvbnm", "ячсмитьбю"]
+
+def check(password):
+    if len(password) < 8:
+        return("LengthError")
+
+    if not (any(i.isupper() for i in password) and any(i.islower() for i in password)):
+        return("LetterError")
+
+    if not any(i.isdigit() for i in password):
+        return("DigitError ")
+
+    for i in coincidences:
+        for j in range(len(password) - 2):
+            if password[j:j+3].lower() in i:
+                return("SequenceError")
+    return("ok")
+
+
+print(check("qwdGesrqwr"))
+print(check("dnrvhifv15"))
+print(check("qwerg56Gk"))
+print(check("qwrF4"))
+print(check("gjguJ1523"))
+
+#3
