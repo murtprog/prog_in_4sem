@@ -250,3 +250,46 @@ main_hero.hit(armored_swordsman)
 
 
 #5
+class MailServer:
+    def __init__(self, name):
+        self.name = name
+        self.inbox = []
+    
+    def receive_mail(self, message):
+        self.inbox.append(message)
+    
+    def get_inbox(self):
+        return self.inbox
+
+class MailClient:
+    def __init__(self, server, user):
+        self.server = server
+        self.user = user
+    
+    def receive_mail(self):
+        if self.server.name == self.user:
+            inbox = self.server.get_inbox()
+            print(f"Получено письмо на сервере {self.server.name}: {inbox}")
+            self.server.inbox = []  # Удаляем все письма после получения
+        else:
+            print(f"Вы не имеете доступа к получению писем на сервере {self.server.name}")
+    
+    def send_mail(self, server, user, message):
+        print(f"Отправка письма с {self.server.name} -> {server.name}: {message}")
+        server.receive_mail((self.user, message))
+
+# Создаем несколько почтовых серверов
+server1 = MailServer("Сервер1")
+server2 = MailServer("Сервер2")
+
+# Создаем клиенты, подключенные к разным серверам
+client1 = MailClient(server1, "Пользователь1")
+client2 = MailClient(server2, "Пользователь2")
+
+# Отправляем письма с одного сервера на другой
+client1.send_mail(server2, "Пользователь2", "Привет от Пользователя1")
+client2.send_mail(server1, "Пользователь1", "Привет от Пользователя2")
+
+# Получаем письма
+client1.receive_mail()
+client2.receive_mail()
